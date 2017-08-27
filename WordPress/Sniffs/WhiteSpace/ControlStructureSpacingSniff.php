@@ -527,27 +527,27 @@ class ControlStructureSpacingSniff extends Sniff {
 				return;
 			}
 
-			if ( ( $this->tokens[ $scopeCloser ]['line'] + 1 ) !== $this->tokens[ $trailingContent ]['line'] ) {
-				// TODO: Won't cover following case: "} echo 'OK';".
-				$error = 'Blank line found after control structure';
-				$fix   = $this->phpcsFile->addFixableError( $error, $scopeCloser, 'BlankLineAfterEnd' );
+			// if ( ( $this->tokens[ $scopeCloser ]['line'] + 1 ) !== $this->tokens[ $trailingContent ]['line'] ) {
+			// 	// TODO: Won't cover following case: "} echo 'OK';".
+			// 	$error = 'Blank line found after control structure';
+			// 	$fix   = $this->phpcsFile->addFixableError( $error, $scopeCloser, 'BlankLineAfterEnd' );
 
-				if ( true === $fix ) {
-					$this->phpcsFile->fixer->beginChangeset();
+			// 	if ( true === $fix ) {
+			// 		$this->phpcsFile->fixer->beginChangeset();
 
-					$i = ( $scopeCloser + 1 );
-					while ( $this->tokens[ $i ]['line'] !== $this->tokens[ $trailingContent ]['line'] ) {
-						$this->phpcsFile->fixer->replaceToken( $i, '' );
-						$i++;
-					}
+			// 		$i = ( $scopeCloser + 1 );
+			// 		while ( $this->tokens[ $i ]['line'] !== $this->tokens[ $trailingContent ]['line'] ) {
+			// 			$this->phpcsFile->fixer->replaceToken( $i, '' );
+			// 			$i++;
+			// 		}
 
-					// TODO: Instead a separate error should be triggered when content comes right after closing brace.
-					if ( T_COMMENT !== $this->tokens[ $scopeCloser ]['code'] ) {
-						$this->phpcsFile->fixer->addNewlineBefore( $trailingContent );
-					}
-					$this->phpcsFile->fixer->endChangeset();
-				}
-			}
+			// 		// TODO: Instead a separate error should be triggered when content comes right after closing brace.
+			// 		if ( T_COMMENT !== $this->tokens[ $scopeCloser ]['code'] ) {
+			// 			$this->phpcsFile->fixer->addNewlineBefore( $trailingContent );
+			// 		}
+			// 		$this->phpcsFile->fixer->endChangeset();
+			// 	}
+			// }
 		}
 
 	} // End process_token().
